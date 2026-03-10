@@ -1,0 +1,136 @@
+{% extends 'layout/base.html' %}
+{% block title %}Diễn đàn thảo luận{% endblock %}
+
+{% block content %}
+<div class="forum-bg py-4">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-xl-10">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="fw-bold text-primary mb-0">
+            <i class="bi bi-chat-left-text-fill me-2"></i> Bài viết cộng đồng
+          </h2>
+          <a href="{{ url_for('create_post') }}" class="btn btn-primary rounded-pill shadow-sm px-3 py-2">
+            <i class="bi bi-plus-circle me-2"></i>+ Viết bài mới
+          </a>
+        </div>
+
+        <!-- Danh sách bài viết -->
+        <div class="post-list">
+          {% for post in posts.items %}
+          <div class="card mb-4 shadow-sm border-0 rounded-4 post-card">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center mb-3">
+                <img src="{{ post.user.avatar }}"
+                     class="rounded-circle shadow-sm me-3"
+                     width="55" height="55"
+                     style="object-fit: cover;"
+                     alt="Avatar người dùng">
+                <div>
+                  <h6 class="fw-bold mb-0 text-dark">{{ post.user.username }}</h6>
+                  <small class="text-muted">{{ post.created_at.strftime('%H:%M, %d/%m/%Y') }}</small>
+                </div>
+              </div>
+
+              <h4 class="fw-bold mb-2">
+                <a href="{{ url_for('post_detail', post_id=post.post_id) }}"
+                   class="text-decoration-none text-dark post-title-link">
+                   {{ post.title }}
+                </a>
+              </h4>
+
+              {% if post.images %}
+                {% if post.images|length == 1 %}
+                  <div class="mb-3 text-center">
+                    <img src="{{ post.images[0].image_url }}"
+                         class="img-fluid rounded-3 shadow-sm post-thumbnail"
+                         alt="Ảnh minh họa bài viết">
+                  </div>
+                {% else %}
+                  <div class="mb-3 d-flex flex-wrap gap-2">
+                    {% for img in post.images[:3] %}
+                      <img src="{{ img.image_url }}"
+                           class="rounded-3 shadow-sm"
+                           style="height: 180px; width: 32%; object-fit: cover;"
+                           alt="Ảnh {{ loop.index }}">
+                    {% endfor %}
+                    {% if post.images|length > 3 %}
+                      <div class="rounded-3 bg-dark text-white d-flex align-items-center justify-content-center"
+                           style="height: 180px; width: 32%; font-size: 1.3rem;">
+                        +{{ post.images|length - 3 }}
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              {% endif %}
+
+              <p class="card-text text-secondary mb-3" style="font-size: 1rem;">
+                {{ post.content[:220] | safe }}...
+              </p>
+
+              <div class="d-flex justify-content-between align-items-center">
+                <a href="{{ url_for('post_detail', post_id=post.post_id) }}"
+                   class="btn btn-outline-primary btn-sm rounded-pill px-3">
+                   <i class="bi bi-chat-dots me-1"></i>Xem chi tiết
+                </a>
+                <div class="text-muted small">
+                  ❤️ {{ post.likes | length }} lượt thích · 💬 {{ post.comments | length }} bình luận
+                </div>
+              </div>
+            </div>
+          </div>
+          {% else %}
+          <div class="alert alert-info text-center shadow-sm rounded-3">
+            <i class="bi bi-info-circle me-2"></i>Hiện chưa có bài viết nào. Hãy là người đầu tiên chia sẻ!
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- Phân trang -->
+        {% if posts.pages > 1 %}
+        <nav aria-label="Pagination" class="mt-4">
+          <ul class="pagination justify-content-center">
+            {% if posts.has_prev %}
+            <li class="page-item">
+              <a class="page-link" href="{{ url_for('post_list', page=posts.prev_num) }}" aria-label="Previous">
+                &laquo; Trước
+              </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">&laquo; Trước</span></li>
+            {% endif %}
+
+            {% for page_num in range(1, posts.pages + 1) %}
+            <li class="page-item {% if posts.page == page_num %}active{% endif %}">
+              <a class="page-link" href="{{ url_for('post_list', page=page_num) }}">{{ page_num }}</a>
+            </li>
+            {% endfor %}
+
+            {% if posts.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="{{ url_for('post_list', page=posts.next_num) }}" aria-label="Next">
+                Sau &raquo;
+              </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">Sau &raquo;</span></li>
+            {% endif %}
+          </ul>
+        </nav>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.forum-bg { background-color: #f3f6fb; min-height: 100vh; padding-left: 180px !important; }
+.page-item.active .page-link {
+  background-color: #0d6efd; border-color: #0d6efd; color: white;
+}
+.page-link { color: #0d6efd; border-radius: 50px; padding: 8px 16px; }
+.page-link:hover { background-color: #e7f1ff; }
+</style>
+{% endblock %}
