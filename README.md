@@ -55,8 +55,9 @@ _(Note: The diagram uses "Pinecone" as an example VectorDB. This project uses "Q
 
 ### 3.2 Key Results and Performance
 
-- **Training ViT_MAE_xrays Accuracy:** The model achieved **93% accuracy**.  
-  The training notebook can be found [here](https://colab.research.google.com/gist/Theanh130124/586c5199b8fc677133fbfe0aa54830a3/vit_mae_xrays.ipynb).
+- **Training ViT_MAE_xrays Accuracy:** The model achieved **93% accuracy**.
+- **Training Notebook:**  
+  https://colab.research.google.com/gist/Theanh130124/586c5199b8fc677133fbfe0aa54830a3/vit_mae_xrays.ipynb
 [- **Dataset:** model was trained on a dataset containing **7,340 images** covering **14 disease labels**.](https://huggingface.co/datasets/tta1301/nih-chest-xray-small)
 
 ### 3.3 Product Interfaces
