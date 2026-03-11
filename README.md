@@ -51,3 +51,138 @@ The diagram below illustrates the RAG architecture used for the text processing 
 
 ![RAG Architecture Diagram](rag.png)
 _(Note: The diagram uses "Pinecone" as an example VectorDB. This project uses "Qdrant" in the equivalent role.)_
+
+
+### 3.2 Key Results and Performance
+
+- **Training ViT_MAE_xrays Accuracy:** The model achieved **93% accuracy**.  
+  The training notebook can be found [here](https://colab.research.google.com/gist/Theanh130124/586c5199b8fc677133fbfe0aa54830a3/vit_mae_xrays.ipynb).
+[- **Dataset:** model was trained on a dataset containing **7,340 images** covering **14 disease labels**.](https://huggingface.co/datasets/tta1301/nih-chest-xray-small)
+
+### 3.3 Product Interfaces
+
+The developed graphical user interfaces (GUIs) include:
+
+1.  Login and Registration Interface
+2.  Homepage Interface
+3.  Chatbot Interface
+4.  Contribution Page Interface
+
+_(Recommended: Insert screenshots of your application here, e.g., `[screenshot_chat.png]`)_
+
+## 4. GETTING STARTED
+
+This guide will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### 4.1 Prerequisites
+
+Ensure you have the following software installed:
+
+- Python `[e.g., 3.10+]`
+- MySQL Server `[e.g., 8.0+]`
+- Qdrant (running as a service or Docker container)
+- Git
+
+### 4.2 Installation
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone [your-repository-url.git]
+    cd [your-project-directory]
+    ```
+
+2.  **Create and activate a virtual environment (Recommended):**
+
+    ```bash
+    # For macOS/Linux
+    python3 -m venv venv
+    source venv/bin/activate
+
+    # For Windows
+    python -m venv venv
+    .\venv\Scripts\activate
+    ```
+
+3.  **Install the required packages:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+### 4.3 Configuration
+
+1.  **Database Setup:**
+
+    - Access your MySQL server and create a new database for the project.
+    - Example: `CREATE DATABASE skinbox_db;`
+
+2.  **Environment Variables:**
+
+    - Create a `.env` file in the root directory of the project.
+    - Copy the contents from `.env.example` (if it exists) or add the necessary variables.
+
+    **Example `.env` file:**
+
+    ```ini
+    # Flask Configuration
+    FLASK_APP=app.py
+    FLASK_ENV=development
+    SECRET_KEY=[your-very-long-random-secret-key]
+
+    # Database Configuration
+    DB_HOST=localhost
+    DB_USER=root
+    DB_PASSWORD=[your-mysql-password]
+    DB_NAME=skinbox_db
+
+    # Qdrant Configuration
+    QDRANT_HOST=localhost
+    QDRANT_PORT=6333
+    ```
+
+### 4.4 Running the Application
+
+1.  **Run the Flask web server:**
+
+    ```bash
+    flask run
+    ```
+
+    Or:
+
+    ```bash
+    python app.py
+    ```
+
+    The application will be accessible at `http://127.0.0.1:5000`.
+
+2.  **Run other scripts (if applicable):**
+    - To run the Selenium data crawler:
+      ```bash
+      python run_selenium_crawler.py
+      ```
+    - To retrain the CNN model:
+      ```bash
+      python train_model.py
+      ```
+
+
+
+## 5. PRODUCT IMAGES
+
+1.  **LOGIN AND REGISTER:**
+
+    <img width="1900" height="907" alt="image" src="https://github.com/user-attachments/assets/d2520abc-0da8-40b2-9706-8a6efa0ab61d" />
+
+    <img width="1875" height="915" alt="image" src="https://github.com/user-attachments/assets/72610c18-a8fe-42e3-b7ab-b5166c3cdda0" />
+
+2.  **HOME PAGE:**
+    <img width="1890" height="917" alt="image" src="https://github.com/user-attachments/assets/e601b38b-6d8a-4e13-a084-c566e9935a18" />
+    <img width="1886" height="919" alt="image" src="https://github.com/user-attachments/assets/2fbc55fc-c076-42c1-a97f-7cb647daeb4a" />
+    <img width="1887" height="920" alt="image" src="https://github.com/user-attachments/assets/0ec66986-5b8f-4598-90db-3dfeb3fd66e7" />
+
+
+
+   
+5.  **GG MAP:**
+   <img width="1891" height="912" alt="image" src="https://github.com/user-attachments/assets/c8f350c5-f0c4-46dd-86c8-480fe7980f89" />
