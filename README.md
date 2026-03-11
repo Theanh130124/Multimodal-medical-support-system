@@ -38,6 +38,16 @@ The chatbot system leverages several advanced technologies:
 | **Qdrant**                               | Serves as the vector database for storing embeddings and enabling efficient semantic retrieval within the RAG pipeline.                                                                               |
 | **Selenium**                             | Used to automatically collect medical knowledge data from reputable healthcare websites to build the knowledge base.                                                                                  |
 
+## 3. SYSTEM ARCHITECTURE AND PERFORMANCE
 
+### 3.1 Architecture
 
+The system is designed with two primary processing flows:
 
+1.  **Image Processing Flow (ViT_MAE):** Analyzes user-uploaded  images X-rays to identify pathological features.
+2.  **Text Processing Flow (RAG):** Analyzes user-described symptoms and retrieves information from the knowledge base.
+
+The diagram below illustrates the RAG architecture used for the text processing flow:
+
+![RAG Architecture Diagram](rag.png)
+_(Note: The diagram uses "Pinecone" as an example VectorDB. This project uses "Qdrant" in the equivalent role.)_
